@@ -14,8 +14,9 @@ PCB design into more digestable pieces.*
 
 - MCU
 - Power System
+- Gyroscope
 - GPS
-- IMU
+- Accelerometer
 - Storage System(data) - SD Card?
 - Parachute System
 - Barametric Sensor
