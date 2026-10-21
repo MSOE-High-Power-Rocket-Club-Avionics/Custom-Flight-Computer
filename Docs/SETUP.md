@@ -121,12 +121,20 @@ git checkout -b feature/short-description
 
 Branch naming:
 
+- Software: `feature` `fix` 
+- General purpose: `docs` `refactor`
+- Hardware: `schematic` `pcb` `3dmodel`
+
+
 | Prefix      | Use for                     | Example                      |
 |-------------|-----------------------------|------------------------------|
 | `feature/`  | New functionality           | `feature/touchscreen-driver` |
 | `fix/`      | Bug fixes                   | `fix/uart-overflow`          |
 | `docs/`     | Documentation only          | `docs/update-readme`         |
 | `refactor/` | Cleanup, no behavior change | `refactor/adc-module`        |
+| `shematic/` | Kicad schematic changes     | `shematic/imu-module`        |
+| `pcb/`      | Kicad pcb changes           | `pcb/power-module`           |
+| `3dmodel/`  | Adding/Changing 3d models   | `3dmodel/base-board`         |
 
 ### Step 3: Do your work, then commit often
 ```bash
