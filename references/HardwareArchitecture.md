@@ -5,6 +5,8 @@ This will help us to break down the schematic and eventually
 PCB design into more digestable pieces.*
 *...* indicates that more needs to be added
 
+
+
 ## System Architecture
 
 *This is for the system as a whole broken down into the potential components that we will need for the main computer module*
@@ -12,16 +14,52 @@ PCB design into more digestable pieces.*
 ## Blocks
 *List of Blocks*
 
+### CORE
 - MCU
 - Power System
-- Gyroscope
+- IMU(Gyroscope + Accelerometer)
 - GPS
-- Accelerometer
 - Storage System(data) - SD Card?
 - Parachute System
 - Barametric Sensor
 - Radio
 - *Payload Electronics
+
+### REDUNDANT
+- MCU
+- Pyro Channels
+
+## Boards
+
+- Off the shelf :(  - Back-up
+    - battery
+    - other dumb stuff :(
+
+
+- Core Stack
+    - Power Board
+        - Power System
+        - Battery(1 of 2)
+        - Pyro Channels (Drogue, Drogue redundant, Parachute, Parachute redundant, *Payload, Payload redundant*) *Off the shelf fires redundant pryo channels*
+    - Control Board
+        - MCU
+        - IMU
+        - Barrometer
+        - Micro SD Card
+    - Communication Board
+        - GPS
+        - Radio
+        - Telemetry
+
+- Extra Boards
+    - Payload... Conversations will be had
+    - Redundancy board(s)
+        - Control
+        - Power
+        - ...
+
+
+
 
 ## Blocks I/O
 Overview of each blocks input and outputs
@@ -34,7 +72,7 @@ Overview of each blocks input and outputs
             - GPS Module
             - Off the shelf Flight computer
             - Radio
-            - *Payload Electronics
+            - *Payload Electronics*
             - Storage System
             - ...
         - SPI (MOSI MISO SCK CS)
