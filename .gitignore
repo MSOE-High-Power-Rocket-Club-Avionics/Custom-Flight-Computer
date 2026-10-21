@@ -1,0 +1,10 @@
+# KiCad backup and temporary files
+*.bck
+*.kicad_prl
+*.bak
+*-bak
+*.log
+*-cache.lib
+
+# Production outputs (optional, if you prefer generating them fresh)
+/Production/
