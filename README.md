@@ -4,7 +4,7 @@ Custom Flight Computer for MSOE HPRC, designing for IREC 2028
 
 ## For members
 
-Follow the [Tutorial](references/SETUP.md) to setup your environment and get started with this project
+Follow the [Tutorial](Docs/SETUP.md) to setup your environment and get started with this project
 
 TESTING TESTING
 ### TODO
