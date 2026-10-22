@@ -12,7 +12,7 @@ This document provides a hardware overview of the project. It breaks the system 
 
 ### 2.1 Core Hardware
 
-- Microcontroller (MCU)
+- STM32 microcontroller (MCU)
 - Battery power system
 - Inertial measurement unit (IMU): gyroscope and accelerometer
 - GPS module
@@ -20,6 +20,8 @@ This document provides a hardware overview of the project. It breaks the system 
 - Parachute deployment system: parachutes and pyro channels
 - Barometric pressure sensor
 - RF radio
+- Battery-voltage sensing
+- Visual and audible status indicators
 - **Tentative:** Payload electronics
 
 ### 2.2 Redundant Hardware
@@ -32,6 +34,10 @@ This document provides a hardware overview of the project. It breaks the system 
 The proposed architecture divides the main flight computer into a core board stack, additional boards, and an off-the-shelf backup flight computer.
 
 ### 3.1 Core Board Stack
+
+- Three-board stack
+- Target board diameter: Pending but around 2.4 inches diameter
+- Mounting pattern, stack spacing, connector positions, and enclosure clearances...
 
 #### Power Board
 
@@ -49,7 +55,7 @@ The proposed architecture divides the main flight computer into a core board sta
 
 #### Control Board
 
-- MCU
+- STM32 MCU
 - IMU
 - Barometric pressure sensor
 - microSD card
@@ -75,85 +81,239 @@ The proposed architecture divides the main flight computer into a core board sta
 
 ## 4. Hardware Block Interfaces
 
-This section describes each block's power connections, signal interfaces, and supporting circuitry. Interface assignments are preliminary until specific components are selected.
+Directions below are relative to the block being described. Power and ground connections are listed separately from signal interfaces. STM32 is the selected MCU family; device-specific pins and electrical limits must match the final components.
 
-### 4.1 MCU Block
+The working interface allocation is I2C for the IMU and barometer, UART for GPS, and SPI for telemetry and storage. Update these assignments if the selected devices require a different interface. Digital sensor data does not require MCU ADC conversion; the ADC is used for analog signals such as battery-voltage sensing.
 
-#### Power Input
+### 4.1 MCU Block — STM32
 
-- 3.3 V and GND
-- **Tentative:** 5 V supply, depending on the selected MCU or module
+#### Inputs
+
+- Regulated 3.3 V and GND
+- SPI MISO: data from telemetry and storage devices
+- UART RX: position and status data from the GPS module's TX pin
+- ADC: scaled battery-voltage signal from the power system
+- GPIO/interrupt inputs:
+  - IMU and barometer interrupts, if supported
+  - Telemetry IRQ and BUSY, if supported
+  - Deployment-channel continuity and arming status, using suitable digital or analog feedback
 - ...
 
-#### Communication Interfaces
+#### Outputs
 
-These interfaces support both transmitting and receiving data, so they are listed together rather than duplicated under inputs and outputs.
-
-**I2C — SCL and SDA**
-
-Potential devices on the common bus, subject to interface compatibility:
-
-- IMU: configuration, initialization, and data acquisition
-- GPS module
-- Off-the-shelf backup flight computer
-- RF radio
-- **Tentative:** Payload electronics
-- Storage system, if supported by the selected device
+- SPI MOSI, SCK, and device-specific CS signals
+- UART TX: configuration or commands to the GPS module's RX pin
+- GPIO: deployment-driver commands and telemetry reset
+- GPIO/PWM: LED and buzzer control, as required by the selected indicators
 - ...
 
-**SPI — MOSI, MISO, SCK, and CS**
+#### Bidirectional Interfaces
 
-- Devices that require SPI instead of I2C
-- SD Card
-- ...
-
-**Design note:** Support both I2C and SPI when selecting the MCU, since the interfaces required will depend on the selected modules.
-
-#### Control Outputs
-
-- Parachute deployment system: control interface to be determined
-- ...
-
-#### Power Distribution Connections
-
-- 3.3 V and GND connections for peripherals, supplied by the power system
-- ...
+- I2C SDA and SCL: common bus for the IMU and barometer
+  - SDA carries commands and sensor data.
+  - With STM32 as controller, SCL provides the bus clock; it is an open-drain line and may also be affected by target clock stretching.
+- SWD programming/debug: SWDIO, SWCLK, reference voltage, GND, and reset access
+- **Tentative:** Payload communication...
 
 #### Supporting Circuitry and Configuration
 
-- Resistors and capacitors required by the selected MCU's specifications
-- I2C channel configuration
+- Decoupling, reset, clock, and boot circuitry required by the selected STM32
+- I2C pull-ups to the appropriate logic supply
+- SPI chip-select allocation and inactive-state behavior
+- UART, ADC, GPIO, and interrupt assignments
+- Programming connector and test access
 - ...
 
-#### MCU Selection Notes
+#### Design Notes
 
-Select the required peripherals and identify their interfaces before choosing the MCU. Use those requirements to determine the necessary number of SPI, I2C, and GPIO connections.
+Confirm the selected STM32 has enough interfaces and pins for the assigned peripherals. Record exact pin mappings and alternate functions as the schematic develops.
+
+Peripheral power comes from the power system, not MCU GPIO. A possible 5 V system rail must not be treated as an STM32 supply or assumed compatible with every signal pin.
 
 ### 4.2 Power System Block
 
 #### Inputs
 
-- Battery power and GND
+- BAT+ and BAT− from the battery
 - ...
 
 #### Outputs
 
-- Regulated 3.3 V and GND
-- **Tentative:** Regulated 5 V, if required
+- Regulated 3.3 V and GND for system electronics
+- Pyro supply and its defined return connection
+- VBat sense: scaled battery-voltage signal to an MCU ADC input
+- **Tentative:** Regulated 5 V, if required by a selected peripheral
+- ...
 
 #### Protection and Supporting Circuitry
 
+- Voltage regulation, likely using a buck converter where appropriate for battery and rail voltages
+- Regulator inductors, resistors, and capacitors selected from the regulator's design requirements
 - Reverse-polarity protection
   - Initial proposal: diode-based protection
   - MOSFET-based protection: evaluate whether it is necessary
 - Overvoltage protection
   - Initial proposal: Zener clamping diode
+- Battery-voltage sensing divider and any required filtering/protection
+- Battery connector, rail test points, and power distribution
+- Battery chemistry, capacity, cell configuration, and connector details...
 
 #### Power Design Notes
 
-Component voltage ratings and the protection circuit must be reviewed together. The Zener diode's nominal breakdown voltage alone does not establish the maximum voltage that connected components may experience; the actual clamping voltage and operating conditions also need to be considered.
+Component voltage ratings and the protection circuit must be reviewed together. The Zener diode's nominal breakdown voltage alone does not establish the maximum voltage that connected components may experience; actual clamping voltage and operating conditions also need to be considered.
+
+Scale VBat sense to remain within the selected ADC's limits throughout the battery operating range. Battery voltage supports monitoring but is not a direct measurement of remaining capacity.
 
 ...
+
+### 4.3 IMU Block
+
+#### Inputs
+
+- 3.3 V and GND, subject to the selected device's supply requirements
+- I2C SCL: clock from the MCU
+- Configuration commands through I2C SDA
+
+#### Outputs
+
+- Accelerometer and gyroscope data through I2C SDA
+- Optional data-ready or interrupt signal to the MCU
+
+#### Bidirectional Interfaces
+
+- I2C SDA: commands and returned sensor data
+
+#### Supporting Circuitry and Notes
+
+- Decoupling and address configuration as required by the selected device
+- Defined mounting orientation and axis mapping
+- Gyroscope measures angular rate; accelerometer measures specific force. Orientation estimation is a software function using sensor data.
+- Selected sensor, measurement ranges, sample rates, and interrupt use...
+
+### 4.4 Barometric Sensor Block
+
+#### Inputs
+
+- 3.3 V and GND, subject to the selected device's supply requirements
+- I2C SCL: clock from the MCU
+- Configuration commands through I2C SDA
+- Ambient pressure through the enclosure's venting arrangement
+
+#### Outputs
+
+- Pressure and, if supported, temperature data through I2C SDA
+- Optional data-ready or interrupt signal to the MCU
+
+#### Bidirectional Interfaces
+
+- I2C SDA: commands and returned sensor data
+
+#### Supporting Circuitry and Notes
+
+- Decoupling and address configuration as required by the selected device
+- Pressure data used by software to estimate altitude
+- Selected device, sample rate, and venting details...
+
+### 4.5 GPS / GNSS Block
+
+#### Inputs
+
+- 3.3 V and GND, subject to the selected module's supply requirements
+- UART RX on the GPS module, connected to MCU TX
+- RF signal from the GNSS antenna
+
+#### Outputs
+
+- UART TX on the GPS module, connected to MCU RX: position, time, and receiver status as supported
+- ...
+
+#### Supporting Circuitry and Notes
+
+- Antenna connection and any supply/filtering required by the selected module and antenna
+- Confirm supply voltage and UART logic levels independently
+- Selected module, antenna placement, and update rate...
+
+### 4.6 Telemetry / RF Radio Block
+
+#### Inputs
+
+- 3.3 V and GND, subject to the selected radio's supply requirements
+- SPI MOSI, SCK, and CS from the MCU
+- RESET command from the MCU
+- Received RF signal through the telemetry antenna
+
+#### Outputs
+
+- SPI MISO to the MCU
+- IRQ and BUSY to the MCU, if supported by the selected radio
+- Transmitted RF signal through the telemetry antenna
+
+#### Supporting Circuitry and Notes
+
+- Radio module or transceiver, antenna connection, and associated power/RF circuitry
+- GNSS reception and telemetry have separate RF interface requirements; finalize the antenna arrangement with the selected devices
+- Selected radio, operating band, antenna placement, and ground receiver...
+
+### 4.7 Data Storage Block
+
+#### Inputs
+
+- 3.3 V and GND
+- SPI MOSI, SCK, and CS from the MCU
+
+#### Outputs
+
+- SPI MISO to the MCU: returned data and status
+- **Tentative:** Card-detect signal, if provided by the socket
+
+#### Supporting Circuitry and Notes
+
+- microSD socket with decoupling and signal biasing as required
+- Working interface: SPI
+- **Tentative:** Additional flash storage, if needed
+- Storage capacity, write-rate requirements, and socket details...
+
+### 4.8 Pyro Channel Block
+
+#### Inputs
+
+- Pyro supply and return
+- GPIO control commands from the responsible flight computer
+- Arming input
+- ...
+
+#### Outputs
+
+- Switched deployment connections for the assigned channels
+- Continuity feedback to the responsible flight computer
+- Arm-status feedback to the responsible flight computer
+- ...
+
+#### Supporting Circuitry and Notes
+
+- Driver, protection, and sensing circuitry between MCU logic and deployment connections
+- MCU GPIO provides a control signal; it does not directly power an initiator
+- Channel ownership, feedback signal levels, and arming connections must be documented
+- The off-the-shelf backup retains the redundant-channel responsibility described in Section 3; these are not implicitly additional outputs of the core STM32
+- Detailed circuit design and test interfaces...
+
+### 4.9 Indicators Block
+
+#### Inputs
+
+- 3.3 V and GND, subject to the selected indicators' requirements
+- GPIO/PWM commands from the MCU
+
+#### Outputs
+
+- Visible light from status LEDs
+- Audible sound from a buzzer or other selected sounder
+
+#### Supporting Circuitry and Notes
+
+- LED current-limiting resistors and drivers where required
+- Buzzer driver if required by load current or sounder type
+- Indicator placement, status meanings, and exact components...
 
 ## 5. System Diagram
 
