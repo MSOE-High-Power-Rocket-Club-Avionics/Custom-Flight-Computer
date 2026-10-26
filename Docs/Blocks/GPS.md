@@ -1,6 +1,6 @@
 # GPS
 
-**Issue:** TBD
+**Issue:** [Design GPS schematic](https://github.com/MSOE-High-Power-Rocket-Club-Avionics/Custom-Flight-Computer/issues/9)
 
 ## Function
 

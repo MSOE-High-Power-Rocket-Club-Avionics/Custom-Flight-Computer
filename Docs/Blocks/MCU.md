@@ -1,6 +1,6 @@
 # STM32 Support
 
-**Issue:** TBD
+**Issue:** [Design mcu schematic](https://github.com/MSOE-High-Power-Rocket-Club-Avionics/Custom-Flight-Computer/issues/7)
 
 ## Function
 

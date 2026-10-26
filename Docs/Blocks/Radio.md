@@ -1,6 +1,6 @@
 # Telemetry Radio
 
-**Issue:** TBD
+**Issue:** [Design Radio schematic](https://github.com/MSOE-High-Power-Rocket-Club-Avionics/Custom-Flight-Computer/issues/10)
 
 ## Function
 

@@ -1,6 +1,6 @@
 # LEDs and Buzzer
 
-**Issue:** TBD
+**Issue:** [Design status schematic](https://github.com/MSOE-High-Power-Rocket-Club-Avionics/Custom-Flight-Computer/issues/13)
 
 ## Function
 

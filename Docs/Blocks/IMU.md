@@ -1,6 +1,6 @@
 # IMU and Barometer
 
-**Issue:** TBD
+**Issue:** [Design IMU schematic](https://github.com/MSOE-High-Power-Rocket-Club-Avionics/Custom-Flight-Computer/issues/8)
 
 ## Function
 

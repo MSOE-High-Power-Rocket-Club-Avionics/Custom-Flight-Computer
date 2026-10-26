@@ -1,6 +1,6 @@
 # Pyro Channels
 
-**Issue:** TBD
+**Issue:** [Design pyro schematic](https://github.com/MSOE-High-Power-Rocket-Club-Avionics/Custom-Flight-Computer/issues/12)
 
 ## Function
 

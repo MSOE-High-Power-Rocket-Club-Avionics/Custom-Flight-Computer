@@ -1,6 +1,6 @@
 # Power and Battery Monitoring
 
-**Issue:** TBD
+**Issue:** [Design power schematic](https://github.com/MSOE-High-Power-Rocket-Club-Avionics/Custom-Flight-Computer/issues/6)
 
 ## Function
 

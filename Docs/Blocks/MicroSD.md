@@ -1,6 +1,6 @@
 # microSD Storage
 
-**Issue:** TBD
+**Issue:** [Design MicroSD schematic](https://github.com/MSOE-High-Power-Rocket-Club-Avionics/Custom-Flight-Computer/issues/11)
 
 ## Function
 
