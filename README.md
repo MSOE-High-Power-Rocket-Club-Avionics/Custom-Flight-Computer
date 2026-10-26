@@ -12,6 +12,41 @@ The repository currently contains project planning documents, a proposed hardwar
 
 `...` marks sections where more information needs to be added. Hardware choices and interfaces are still being evaluated.
 
+## Project Timeline
+
+**Target: Tested core prototype by April 30, 2027.** Dates are planning targets and include time for exams, holidays, and a possible second PCB revision. Flight readiness will be reviewed separately.
+
+```mermaid
+gantt
+    title Development Timeline — 2026–2027
+    dateFormat YYYY-MM-DD
+    axisFormat %b
+    section Design
+    Architecture                  :2026-10-22, 2026-10-31
+    Schematics and review         :2026-11-02, 2026-12-05
+    Mechanical design             :2026-11-02, 2027-01-23
+    PCB layout and release        :2026-12-07, 2027-01-30
+    section Software
+    Development-board firmware    :2026-11-02, 2027-02-27
+    section Prototype
+    Assembly and bring-up          :2027-02-01, 2027-02-27
+    Integrated testing            :2027-03-01, 2027-03-13
+    Revision B and retesting       :2027-03-15, 2027-04-17
+    Verification and demonstration :2027-04-19, 2027-05-01
+```
+
+### Checkpoints
+
+| Target Date | Checkpoint |
+| --- | --- |
+| October 30, 2026 | Agree on architecture, components, interfaces, and owners |
+| December 4, 2026 | Complete schematic and mechanical interface review |
+| January 29, 2027 | Approve and order revision A PCBs |
+| February 26, 2027 | Complete assembly and individual board bring-up |
+| March 12, 2027 | Demonstrate integrated operation; decide revision B changes |
+| April 16, 2027 | Complete revision B and retesting, if needed |
+| April 30, 2027 | Verify and demonstrate the core prototype |
+
 ## Project Goals
 
 - Collect and store flight data for analysis and future club projects.
