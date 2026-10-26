@@ -4,13 +4,16 @@ A modular flight computer project by the **Milwaukee School of Engineering High 
 
 Our goal is to build a customizable flight computer that gives the team more control over its electronics and flight data. The design centers on a core board stack, with additional modules planned to extend its capabilities.
 
-## Current Status
+## Start Here
 
-**Early development — requirements, research, and system architecture.**
-
-The repository currently contains project planning documents, a proposed hardware architecture, a KiCad project, and an initial mechanical part. The KiCad schematic and PCB files are currently empty starting points. Software architecture and pseudocode are placeholders; buildable firmware has not yet been added.
-
-`...` marks sections where more information needs to be added. Hardware choices and interfaces are still being evaluated.
+| I need to… | Go to |
+| --- | --- |
+| Find my assignment | [Block assignments](Docs/Blocks/README.md) |
+| Set up my computer | [Setup](Docs/SETUP.md) |
+| Learn how to submit work | [Team workflow](CONTRIBUTING.md) |
+| Find datasheets and tutorials | [Resources](Docs/Resources.md) |
+| Understand the system | [Hardware architecture](Docs/Architecture/HardwareArchitecture.md) |
+| Check current requirements | [Requirements](Docs/Requirements.md) |
 
 ## Project Timeline
 
@@ -57,63 +60,25 @@ gantt
 
 These are intended capabilities; implementation and testing are still ahead.
 
-## Proposed Hardware Architecture
+## Project
 
-| Board or System | Planned Responsibilities |
+The proposed core has power, control, and communication boards. Planned functions include flight sensing, microSD logging, GPS, telemetry, and pyro-channel control alongside a commercial backup system.
+
+**Next checkpoint:** Agree on block interfaces, owners and initial schematic assignments. The working roadmap targets a tested core prototype in April 2027; leads should confirm dates against team availability. Flight readiness is a separate review.
+
+## Repository
+
+| Folder | Contents |
 | --- | --- |
-| Power board | Battery connections, voltage regulation, protection, and pyro channels |
-| Control board | MCU, IMU, barometric pressure sensor, and microSD storage |
-| Communication board | GPS, RF radio, and telemetry |
-| Additional modules | Payload electronics and possible redundancy boards... |
-| Off-the-shelf backup | Backup flight computer with a dedicated battery; integration details remain under discussion |
-
-Component selection, board connections, and the division of responsibilities between the custom and backup systems are still in progress. See the [hardware architecture](Docs/Architecture/HardwareArchitecture.md) for the current proposal.
-
-## Repository Guide
-
-| Location | Contents |
-| --- | --- |
-| [Hardware/](Hardware/) | KiCad project, schematic, and PCB files |
-| [Software/](Software/) | Software planning and pseudocode |
-| [3DModels/](3DModels/) | Mechanical CAD, currently a SolidWorks base disk part |
-| [Docs/Architecture/](Docs/Architecture/) | Hardware architecture and software architecture placeholder |
-| [Docs/Requirements/](Docs/Requirements/) | Core requirements and IREC avionics requirements notes |
-| [Docs/CFC General/](Docs/CFC%20General/) | Project overview and proposal |
-| [Docs/Research/](Docs/Research/) | Research materials and course notes |
-| [Docs/PCB Design Resources/](Docs/PCB%20Design%20Resources/) | PCB design learning resources |
-| [Docs/Flight Computer Resources/](Docs/Flight%20Computer%20Resources/) | Flight computer reference designs |
-| [Docs/SETUP.md](Docs/SETUP.md) | Team Git, GitHub, and collaboration guide |
-
-## Getting Started
-
-1. Read the [team setup guide](Docs/SETUP.md) for Git setup and the branch and pull request workflow.
-2. Clone the repository:
-
-   ```bash
-   git clone https://github.com/MSOE-High-Power-Rocket-Club-Avionics/Custom-Flight-Computer.git
-   cd Custom-Flight-Computer
-   ```
-
-3. Review the [project overview](Docs/CFC%20General/Custom%20Flight%20Computer.docx), [core requirements](Docs/Requirements/Requirements.docx), and [hardware architecture](Docs/Architecture/HardwareArchitecture.md).
-4. Choose the area you are working on:
-   - **Hardware:** Open `Hardware/Modular Flight Computer.kicad_pro` in KiCad. The current design files were generated with KiCad 10.0.
-   - **Software:** Start with [SoftwareArchitecture.md](Docs/Architecture/SoftwareArchitecture.md) and [SudoCode.md](Software/SudoCode.md). Firmware setup and build instructions will be added when a firmware project is available...
-   - **Mechanical:** Review `3DModels/Base Disk.SLDPRT` using SolidWorks or a compatible viewer.
+| [Hardware](Hardware/README.md) | KiCad files and hardware working instructions |
+| [Software](Software/README.md) | Software planning and future firmware |
+| [3DModels](3DModels/README.md) | Mechanical CAD |
+| [Docs](Docs/README.md) | Requirements, architecture, assignments and resources |
+| [Tests](Tests/README.md) | How to record testing when it begins |
 
 ## Contributing
 
-Use a separate branch for each task and submit changes through a pull request. Follow the [team workflow](Docs/SETUP.md#3-team-workflow), request a teammate's review, and avoid committing directly to `main`.
-
-When updating the design, keep the relevant requirements and architecture documents in sync. Coordinate changes to shared CAD files with the team.
-
-## Next Steps
-
-- Refine requirements and select the MCU, sensors, and communication components.
-- Define board interfaces, power requirements, and the expansion interface.
-- Develop the schematics, PCB layouts, and mechanical integration.
-- Define the software architecture and begin firmware development.
-- Document subsystem tests and integration results.
-- Add dashboard and payload module details...
+Use issues to track assignments and pull requests to review changes. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
