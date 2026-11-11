@@ -1,10 +1,53 @@
-# KiCad backup and temporary files
-*.bck
-*.kicad_prl
-*.bak
-*-bak
-*.log
-*-cache.lib
+# ==========================================
+# Official .gitignore for KiCad Projects
+# ==========================================
 
-# Production outputs (optional, if you prefer generating them fresh)
-/Production/
+# --- Temporary and Backup Files ---
+*.000
+*.bak
+*.bck
+*.kicad_pcb-bak
+*.kicad_sch-bak
+*.sch-bak
+*~
+_autosave-*
+*.tmp
+*-save.pro
+*-save.kicad_pcb
+fp-info-cache
+
+# --- KiCad Backups Directory (KiCad 6.0+) ---
+*-backups/
+/*-backups/*.zip
+
+# --- Local Git-based History (KiCad 9.0+) ---
+.history/
+
+# --- Local Project Settings ---
+# Stores local window positions and workspace states. 
+# Do not track this if multiple people work on the project.
+*.kicad_prl
+
+# --- Netlist and Autorouter Files ---
+# These are generated/exported files and can be safely re-created.
+*.net
+*.dsn
+*.ses
+
+# --- Footprint Association Files ---
+*.cmp
+
+# --- Exported Design Outputs ---
+# Exclude automatically generated BOMs, logs, and caches.
+*.xml
+*.csv
+*.tsv
+*.log
+*.raw
+.svg2shenzhen-cache/
+
+# --- Optional Fabrication Outputs ---
+# Uncomment the line below if you generate fabrication files (Gerbers/Drill) 
+# into a folder named "gerbers" or "fab" and don't want them tracked.
+# gerbers/
+# fab/
