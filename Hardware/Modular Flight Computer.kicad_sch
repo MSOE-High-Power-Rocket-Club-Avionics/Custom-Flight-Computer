@@ -2,9 +2,55 @@
 	(version 20260306)
 	(generator "eeschema")
 	(generator_version "10.0")
-	(uuid 8ebf23ca-5f10-4b5a-a9c9-ff897dbfcba8)
+	(uuid "8ebf23ca-5f10-4b5a-a9c9-ff897dbfcba8")
 	(paper "A4")
 	(lib_symbols)
+	(sheet
+		(at 12.7 12.7)
+		(size 45.72 43.18)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "ca9179da-2164-407c-9b62-91ad3771053c")
+		(property "Sheetname" "Power"
+			(at 12.7 11.9884 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "untitled.kicad_sch"
+			(at 12.7 56.4646 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "Modular Flight Computer"
+				(path "/8ebf23ca-5f10-4b5a-a9c9-ff897dbfcba8"
+					(page "2")
+				)
+			)
+		)
+	)
 	(sheet_instances
 		(path "/"
 			(page "1")
