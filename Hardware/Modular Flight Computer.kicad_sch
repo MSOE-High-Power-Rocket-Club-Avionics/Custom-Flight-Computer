@@ -2,9 +2,55 @@
 	(version 20260306)
 	(generator "eeschema")
 	(generator_version "10.0")
-	(uuid 8ebf23ca-5f10-4b5a-a9c9-ff897dbfcba8)
+	(uuid "8ebf23ca-5f10-4b5a-a9c9-ff897dbfcba8")
 	(paper "A4")
 	(lib_symbols)
+	(sheet
+		(at 220.98 15.24)
+		(size 60.96 55.88)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "558f5750-481b-4764-b4e2-d676db042476")
+		(property "Sheetname" "Pyro Block"
+			(at 220.98 14.5284 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Pyro.kicad_sch"
+			(at 220.98 71.7046 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "Modular Flight Computer"
+				(path "/8ebf23ca-5f10-4b5a-a9c9-ff897dbfcba8"
+					(page "2")
+				)
+			)
+		)
+	)
 	(sheet_instances
 		(path "/"
 			(page "1")
