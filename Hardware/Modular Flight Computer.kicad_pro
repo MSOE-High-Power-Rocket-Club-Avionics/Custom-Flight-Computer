@@ -661,13 +661,17 @@
         "uuid": "8ebf23ca-5f10-4b5a-a9c9-ff897dbfcba8"
       }
     ],
-    "used_designators": "D1",
+    "used_designators": "",
     "variants": []
   },
   "sheets": [
     [
       "8ebf23ca-5f10-4b5a-a9c9-ff897dbfcba8",
       "Modular Flight Computer"
+    ],
+    [
+      "ca9179da-2164-407c-9b62-91ad3771053c",
+      "Power"
     ],
     [
       "558f5750-481b-4764-b4e2-d676db042476",
