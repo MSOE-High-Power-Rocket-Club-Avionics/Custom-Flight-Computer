@@ -15,7 +15,7 @@ _autosave-*
 *-save.pro
 *-save.kicad_pcb
 fp-info-cache
-
+*.lck
 # --- KiCad Backups Directory (KiCad 6.0+) ---
 *-backups/
 /*-backups/*.zip
